@@ -7,10 +7,11 @@ import cron from 'node-cron';
 
 import checkPrices from './utils/priceChecker.js';
 import productRoutes from './routes/productRoutes.js';
+import predictRoutes from './routes/predictRoutes.js';
 
 dotenv.config();
 
-const app = express(); // ✅ Define `app` before using it
+const app = express(); 
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
@@ -18,6 +19,9 @@ app.use(express.json());
 
 // ✅ Now register your routes
 app.use('/api/products', productRoutes);
+app.use('/api', predictRoutes);
+app.use('/api/predict-drop', predictRoutes);
+
 
 mongoose
   .connect(process.env.MONGO_URI, {
